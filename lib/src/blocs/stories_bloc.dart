@@ -25,9 +25,9 @@ class StoriesBloc {
     _topIds.sink.add(ids);
   }
 
-  /*clearCache() {
+  clearCache() {
     return _repository.clearCache();
-  }*/
+  }
 
   _itemsTransformer() {
     return ScanStreamTransformer(
