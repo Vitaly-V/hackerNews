@@ -20,7 +20,7 @@ class Comment extends StatelessWidget {
         final item = snapshot.data;
         final children = <Widget>[
           ListTile(
-            title: Text(item.text),
+            title: buildText(item.text),
             subtitle: item.by == '' ? Text('Deleted') : Text(item.by),
             contentPadding: EdgeInsets.only(
               right: 16.0,
@@ -30,11 +30,13 @@ class Comment extends StatelessWidget {
           Divider(),
         ];
         item.kids.forEach((kidId) {
-          children.add(Comment(
-            itemId: kidId,
-            itemMap: itemMap,
-            depth: depth + 1,
-          ),);
+          children.add(
+            Comment(
+              itemId: kidId,
+              itemMap: itemMap,
+              depth: depth + 1,
+            ),
+          );
         });
 
         return Column(
@@ -42,5 +44,12 @@ class Comment extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget buildText(String text) {
+    return Text(text
+        .replaceAll('&#x27;', "'")
+        .replaceAll('<p>', '\n\n')
+        .replaceAll('</p>', ''));
   }
 }
